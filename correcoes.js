@@ -116,3 +116,46 @@ window.renderDias = function(){
 
 console.log('✅ Correção de importação CSV carregada!');
 console.log('✅ Filtro de dias úteis ativado!');
+
+
+// 4. Corrigir cálculo de diferença em tempo real
+setTimeout(()=>{
+  const inputs = document.querySelectorAll('input[type="number"]');
+  inputs.forEach(inp=>{
+    inp.addEventListener('input', function(){
+      // Encontrar a linha da tabela
+      const tr = this.closest('tr');
+      if(!tr) return;
+      
+      // Pegar os valores de A Receber e Recebido
+      const inputsRow = tr.querySelectorAll('input[type="number"]');
+      if(inputsRow.length<2) return;
+      
+      const aReceber = parseFloat(inputsRow[0].value) || 0;
+      const recebido = parseFloat(inputsRow[1].value) || 0;
+      const diferenca = aReceber - recebido;
+      
+      // Encontrar a célula de diferença (7ª coluna)
+      const cells = tr.querySelectorAll('td');
+      if(cells.length >= 7){
+        const difCell = cells[6];
+        if(diferenca === 0){
+          difCell.textContent = '—';
+        } else {
+          difCell.textContent = 'R$ ' + diferenca.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
+          if(diferenca > 0) difCell.style.color = '#ff4444';
+          else difCell.style.color = '#44ff44';
+        }
+      }
+      
+      // Calcular porcentagem (8ª coluna)
+      if(cells.length >= 8 && aReceber > 0){
+        const pctCell = cells[7];
+        const pct = (recebido / aReceber) * 100;
+        pctCell.textContent = pct.toFixed(2) + '%';
+      }
+    });
+  });
+}, 1000);
+
+console.log('✅ Correção de cálculo de diferença ativada!');
