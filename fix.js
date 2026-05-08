@@ -61,4 +61,7 @@ function importCSV(inp){
   r.readAsText(f,'UTF-8');
 }
 
+// Garante que a função sobrescreva a definição anterior
+window.importCSV = importCSV;
+
 console.log('✅ Correção de importação CSV carregada!');
