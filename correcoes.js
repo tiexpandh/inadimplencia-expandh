@@ -1,5 +1,10 @@
 // Correções: Importação CSV formato compacto + Apenas dias úteis
 
+// Definir variável meses (caso não exista no escopo global)
+if (typeof meses === 'undefined') {
+  window.meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+}
+
 // 1. Substituir função importCSV para formato compacto
 window.importCSV = function(inp){
   const f=inp.files[0];
