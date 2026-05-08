@@ -180,6 +180,7 @@ window.renderTabela = function(){
   
   // Armazenar os períodos calculados globalmente
   window.periodosAtuais = periodos;
+    window.janelaAtual = periodos; // Substituir janela global
   
   // Chamar função original
   renderTabelaOriginal();
