@@ -2,341 +2,48 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Expandh — Inadimplência</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;color:#1a1a2e}
-.hdr{background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.hdr h1{font-size:1.15rem;font-weight:700}
-.hdr small{opacity:.65;font-size:.75rem;display:block;margin-top:2px}
-.hdr-btns{display:flex;gap:8px;flex-wrap:wrap}
-.btn{padding:7px 14px;border:none;border-radius:8px;cursor:pointer;font-size:.82rem;font-weight:600;transition:all .2s}
-.btn-ghost{background:transparent;border:1.5px solid rgba(255,255,255,.4);color:#fff}.btn-ghost:hover{background:rgba(255,255,255,.15)}
-.btn-green{background:#22c55e;color:#fff}.btn-green:hover{background:#16a34a}
-.btn-indigo{background:#6366f1;color:#fff}.btn-indigo:hover{background:#4f46e5}
-.btn-amber{background:#f59e0b;color:#fff}.btn-amber:hover{background:#d97706}
-.btn-gray{background:#e2e8f0;color:#475569}.btn-gray:hover{background:#cbd5e1}
-
-.card{background:#fff;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.08);margin:14px 20px 0;padding:12px 16px}
-.janela-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.badge-ind{background:#6366f1;color:#fff;padding:3px 12px;border-radius:20px;font-size:.75rem;font-weight:700}
-.chip{background:#f1f5f9;border:1px solid #cbd5e1;padding:2px 10px;border-radius:20px;font-size:.77rem;font-weight:600;color:#374151}
-.chip.novo{background:#dcfce7;border-color:#86efac;color:#166534}
-
-.dias-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.dias-row label{font-size:.82rem;font-weight:700;color:#6366f1;white-space:nowrap}
-.dia-pill{padding:4px 12px;border-radius:20px;border:1.5px solid #e2e8f0;background:#fff;cursor:pointer;font-size:.78rem;font-weight:600;color:#64748b;transition:all .15s}
-.dia-pill:hover{border-color:#6366f1;color:#6366f1}
-.dia-pill.ativo{background:#6366f1;color:#fff;border-color:#6366f1}
-.dia-pill.salvo{border-color:#4ade80;color:#166534}
-.dia-pill.salvo.ativo{background:#22c55e;border-color:#22c55e;color:#fff}
-.dia-pill.ehoje{border-color:#f59e0b;color:#92400e;font-weight:800}
-.dia-pill.ehoje.ativo{background:#f59e0b;border-color:#f59e0b;color:#fff}
-input[type=date]{padding:5px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:.82rem}
-
-.tabs{display:flex;margin:12px 20px 0;gap:0}
-.tab{padding:9px 20px;border-radius:10px 10px 0 0;cursor:pointer;font-size:.87rem;font-weight:600;border:none;background:#e2e8f0;color:#64748b;transition:all .2s}
-.tab.ativo{background:#fff;color:#6366f1;box-shadow:0 -2px 6px rgba(0,0,0,.06)}
-
-.main{margin:0 20px 24px;background:#fff;border-radius:0 10px 10px 10px;box-shadow:0 1px 8px rgba(0,0,0,.08);padding:18px}
-
-.data-hdr{background:#f8fafc;border-radius:8px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
-.data-hdr .titulo{font-size:1rem;font-weight:700}
-.ref-pill{font-size:.76rem;background:#fef9c3;border:1px solid #fde047;padding:2px 10px;border-radius:20px;color:#854d0e}
-
-.tbl-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:.84rem}
-thead th{background:#1a1a2e;color:#fff;padding:9px 11px;text-align:left;white-space:nowrap;font-size:.77rem}
-tbody tr{border-bottom:1px solid #f1f5f9}
-tbody tr:hover{background:#fafafa}
-td{padding:7px 11px;vertical-align:middle}
-.sep td{background:#f8fafc;padding:5px 11px;font-weight:700;font-size:.78rem;color:#6366f1;letter-spacing:.4px;text-transform:uppercase}
-.cbadge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:.74rem;font-weight:700}
-.sab{background:#dbeafe;color:#1e40af}
-.sage{background:#f3e8ff;color:#6b21a8}
-
-.inp{width:145px;padding:5px 8px;border:1.5px solid #e2e8f0;border-radius:6px;font-size:.82rem;transition:border .15s}
-.inp:focus{outline:none;border-color:#6366f1}
-.inp.igual{background:#f0fdf4;border-color:#86efac}
-.inp.altered{background:#fffbeb;border-color:#fbbf24}
-.dif{font-weight:600;color:#ef4444}
-.pok{color:#16a34a;font-weight:700}
-.pat{color:#d97706;font-weight:700}
-.pcr{color:#dc2626;font-weight:700}
-.delta{font-size:.77rem;font-weight:600}
-.dp{color:#16a34a}.dn{color:#dc2626}.dz{color:#94a3b8}
-.sbadge{padding:2px 8px;border-radius:20px;font-size:.72rem;font-weight:700}
-.sok{background:#dcfce7;color:#166534}
-.sat{background:#fef9c3;color:#854d0e}
-.scr{background:#fee2e2;color:#991b1b}
-
-.rodape{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
-
-#painel-hist{display:none}
-.filt-row{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
-.filt-row select,.filt-row input{padding:5px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:.82rem}
-.htbl-wrap{overflow-x:auto;max-height:440px;overflow-y:auto}
-.htbl{width:100%;border-collapse:collapse;font-size:.81rem}
-.htbl thead th{background:#1a1a2e;color:#fff;padding:8px 11px;position:sticky;top:0;text-align:left;white-space:nowrap}
-.htbl tbody td{padding:6px 11px;border-bottom:1px solid #f1f5f9}
-.htbl tbody tr:hover{background:#f8fafc}
-.vazio{text-align:center;padding:36px;color:#94a3b8}
-
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:999}
-.overlay.open{display:flex}
-.modal{background:#fff;border-radius:14px;padding:26px;width:480px;max-width:95vw;box-shadow:0 8px 32px rgba(0,0,0,.2)}
-.modal h3{font-size:1rem;margin-bottom:14px}
-.drop{border:2px dashed #6366f1;border-radius:10px;padding:28px;text-align:center;color:#6366f1;cursor:pointer;background:#f5f3ff;font-size:.88rem}
-.drop:hover{background:#ede9fe}
-.modal-btns{display:flex;gap:10px;margin-top:14px;justify-content:flex-end}
-
-#toast{position:fixed;bottom:22px;right:22px;background:#1a1a2e;color:#fff;padding:11px 18px;border-radius:10px;font-size:.86rem;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,.25);z-index:9999;display:none}
-#toast.show{display:block}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;color:#1a1a2e}.hdr{background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.hdr h1{font-size:1.15rem;font-weight:700}.hdr small{opacity:.65;font-size:.75rem;display:block;margin-top:2px}.hdr-btns{display:flex;gap:8px;flex-wrap:wrap}.btn{padding:7px 14px;border:none;border-radius:8px;cursor:pointer;font-size:.82rem;font-weight:600;transition:all .2s}.btn-ghost{background:transparent;border:1.5px solid rgba(255,255,255,.4);color:#fff}.btn-ghost:hover{background:rgba(255,255,255,.15)}.btn-green{background:#22c55e;color:#fff}.btn-green:hover{background:#16a34a}.btn-indigo{background:#6366f1;color:#fff}.btn-indigo:hover{background:#4f46e5}.btn-amber{background:#f59e0b;color:#fff}.btn-amber:hover{background:#d97706}.btn-gray{background:#e2e8f0;color:#475569}.btn-gray:hover{background:#cbd5e1}.card{background:#fff;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.08);margin:14px 20px 0;padding:12px 16px}.janela-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.badge-ind{background:#6366f1;color:#fff;padding:3px 12px;border-radius:20px;font-size:.75rem;font-weight:700}.chip{background:#f1f5f9;border:1px solid #cbd5e1;padding:2px 10px;border-radius:20px;font-size:.77rem;font-weight:600;color:#374151}.chip.novo{background:#dcfce7;border-color:#86efac;color:#166534}.dias-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.dias-row label{font-size:.82rem;font-weight:700;color:#6366f1;white-space:nowrap}.dia-pill{padding:4px 12px;border-radius:20px;border:1.5px solid #e2e8f0;background:#fff;cursor:pointer;font-size:.78rem;font-weight:600;color:#64748b;transition:all .15s}.dia-pill:hover{border-color:#6366f1;color:#6366f1}.dia-pill.ativo{background:#6366f1;color:#fff;border-color:#6366f1}.dia-pill.salvo{border-color:#4ade80;color:#166534}.dia-pill.salvo.ativo{background:#22c55e;border-color:#22c55e;color:#fff}.dia-pill.ehoje{border-color:#f59e0b;color:#92400e;font-weight:800}.dia-pill.ehoje.ativo{background:#f59e0b;border-color:#f59e0b;color:#fff}input[type=date]{padding:5px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:.82rem}.tabs{display:flex;margin:12px 20px 0;gap:0}.tab{padding:9px 20px;border-radius:10px 10px 0 0;cursor:pointer;font-size:.87rem;font-weight:600;border:none;background:#e2e8f0;color:#64748b;transition:all .2s}.tab.ativo{background:#fff;color:#6366f1;box-shadow:0 -2px 6px rgba(0,0,0,.06)}.main{margin:0 20px 24px;background:#fff;border-radius:0 10px 10px 10px;box-shadow:0 1px 8px rgba(0,0,0,.08);padding:18px}.data-hdr{background:#f8fafc;border-radius:8px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}.data-hdr .titulo{font-size:1rem;font-weight:700}.ref-pill{font-size:.76rem;background:#fef9c3;border:1px solid #fde047;padding:2px 10px;border-radius:20px;color:#854d0e}.tbl-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.84rem}thead th{background:#1a1a2e;color:#fff;padding:9px 11px;text-align:left;white-space:nowrap;font-size:.77rem}tbody tr{border-bottom:1px solid #f1f5f9}tbody tr:hover{background:#fafafa}td{padding:7px 11px;vertical-align:middle}.sep td{background:#f8fafc;padding:5px 11px;font-weight:700;font-size:.78rem;color:#6366f1;letter-spacing:.4px;text-transform:uppercase}.cbadge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:.74rem;font-weight:700}.sab{background:#dbeafe;color:#1e40af}.sage{background:#f3e8ff;color:#6b21a8}.inp{width:145px;padding:5px 8px;border:1.5px solid #e2e8f0;border-radius:6px;font-size:.82rem;transition:border .15s}.inp:focus{outline:none;border-color:#6366f1}.inp.igual{background:#f0fdf4;border-color:#86efac}.inp.alterado{background:#fffbeb;border-color:#fbbf24}.dif{font-weight:600;color:#ef4444}.pok{color:#16a34a;font-weight:700}.pat{color:#d97706;font-weight:700}.pcr{color:#dc2626;font-weight:700}.delta{font-size:.77rem;font-weight:600}.dp{color:#16a34a}.dn{color:#dc2626}.dz{color:#94a3b8}.sbadge{padding:2px 8px;border-radius:20px;font-size:.72rem;font-weight:700}.sok{background:#dcfce7;color:#166534}.sat{background:#fef9c3;color:#854d0e}.scr{background:#fee2e2;color:#991b1b}.rodape{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}#painel-hist{display:none}.filt-row{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;align-items:center}.filt-row select,.filt-row input{padding:5px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:.82rem}.htbl-wrap{overflow-x:auto;max-height:440px;overflow-y:auto}.htbl{width:100%;border-collapse:collapse;font-size:.81rem}.htbl thead th{background:#1a1a2e;color:#fff;padding:8px 11px;position:sticky;top:0;text-align:left;white-space:nowrap}.htbl tbody td{padding:6px 11px;border-bottom:1px solid #f1f5f9}.htbl tbody tr:hover{background:#f8fafc}.vazio{text-align:center;padding:36px;color:#94a3b8}.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:999}.overlay.open{display:flex}.modal{background:#fff;border-radius:14px;padding:26px;width:480px;max-width:95vw;box-shadow:0 8px 32px rgba(0,0,0,.2)}.modal h3{font-size:1rem;margin-bottom:14px}.drop{border:2px dashed #6366f1;border-radius:10px;padding:28px;text-align:center;color:#6366f1;cursor:pointer;background:#f5f3ff;font-size:.88rem}.drop:hover{background:#ede9fe}.modal-btns{display:flex;gap:10px;margin-top:14px;justify-content:flex-end}#toast{position:fixed;bottom:22px;right:22px;background:#1a1a2e;color:#fff;padding:11px 18px;border-radius:10px;font-size:.86rem;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,.25);z-index:9999;display:none}#toast.show{display:block}
 </style>
 </head>
 <body>
-
 <div class="hdr">
-  <div><h1>🏢 Expandh — Inadimplência</h1><small>Registro diário · Janela deslizante 6 meses</small></div>
-  <div class="hdr-btns">
-    <button class="btn btn-ghost" onclick="abrirImport()">📥 Importar CSV</button>
-    <button class="btn btn-ghost" onclick="exportTudo()">📤 Exportar Tudo</button>
-  </div>
+<div><h1>🏢 Expandh — Inadimplência</h1><small>Registro diário · Janela deslizante 6 meses</small></div>
+<div class="hdr-btns">
+<button class="btn btn-ghost" onclick="abrirImport()">📥 Importar CSV</button>
+<button class="btn btn-ghost" onclick="exportTudo()">📤 Exportar Tudo</button>
 </div>
-
-<div class="card">
-  <div class="janela-row">
-    <span class="badge-ind">JANELA ATUAL</span>
-    <div id="jMeses" style="display:flex;gap:6px;flex-wrap:wrap"></div>
-    <span id="jProx" style="font-size:.8rem;color:#94a3b8"></span>
-  </div>
 </div>
-
-<div class="card">
-  <div class="dias-row">
-    abel>📅 Dia:</label>
-    <div id="diasRow" style="display:flex;gap:6px;flex-wrap:wrap"></div>
-    <input type="date" id="dtManual" onchange="selData(this.value)">
-  </div>
-</div>
-
+<div class="card"><div class="janela-row"><span class="badge-ind">JANELA ATUAL</span><div id="jMeses" style="display:flex;gap:6px;flex-wrap:wrap"></div><span id="jProx" style="font-size:.8rem;color:#94a3b8"></span></div></div>
+<div class="card"><div class="dias-row">abel>📅 Dia:</label><div id="diasRow" style="display:flex;gap:6px;flex-wrap:wrap"></div><input type="date" id="dtManual" onchange="selData(this.value)"></div></div>
 <div class="tabs">
-  <button class="tab ativo" id="tReg" onclick="mudarTab('reg')">📋 Registro do Dia</button>
-  <button class="tab" id="tHist" onclick="mudarTab('hist')">📂 Histórico</button>
+<button class="tab ativo" id="tReg" onclick="mudarTab('reg')">📋 Registro do Dia</button>
+<button class="tab" id="tHist" onclick="mudarTab('hist')">📂 Histórico</button>
 </div>
-
 <div class="main">
-  <div id="painel-reg">
-    <div class="data-hdr">
-      <div>
-        <div class="titulo" id="dTitulo">—</div>
-        <div id="refPill" class="ref-pill" style="display:none;margin-top:4px"></div>
-      </div>
-    </div>
-    <div class="tbl-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Período</th><th>Carteira</th>
-            <th>A Receber (R$)</th><th>Recebido (R$)</th>
-            <th>Ant. Recebido</th><th>Δ Recebido</th>
-            <th>Diferença</th><th>%</th><th>Status</th>
-          </tr>
-        </thead>
-        <tbody id="tBody"></tbody>
-      </table>
-    </div>
-    <div class="rodape">
-      <button class="btn btn-green" onclick="exportDia()">⬇️ Exportar dia · Power BI</button>
-      <button class="btn btn-indigo" onclick="salvarDia()">💾 Salvar</button>
-      <button class="btn btn-amber" onclick="preencherAnterior()">🔄 Preencher com anterior</button>
-      <button class="btn btn-gray" onclick="limpar()">🗑 Limpar</button>
-    </div>
-  </div>
-
-  <div id="painel-hist">
-    <div class="filt-row">
-      abel style="font-weight:700;font-size:.83rem">Filtrar:</label>
-      <select id="fCart" onchange="renderHist()"><option value="">Todas</option><option>SAB</option><option>SAG-e</option></select>
-      <select id="fPer" onchange="renderHist()"><option value="">Todos períodos</option></select>
-      <button class="btn btn-indigo" style="padding:5px 12px;font-size:.79rem" onclick="exportTudo()">📤 Exportar tudo</button>
-    </div>
-    <div class="htbl-wrap">
-      <table class="htbl">
-        <thead><tr><th>Data Base</th><th>Tipo</th><th>Período</th><th>A Receber</th><th>Recebido</th><th>Diferença</th><th>%</th><th>Status</th><th></th></tr></thead>
-        <tbody id="hBody"></tbody>
-      </table>
-    </div>
-  </div>
+<div id="painel-reg">
+<div class="data-hdr"><div><div class="titulo" id="dTitulo">—</div><div id="refPill" class="ref-pill" style="display:none;margin-top:4px"></div></div></div>
+<div class="tbl-wrap"><table><thead><tr><th>Período</th><th>Carteira</th><th>A Receber (R$)</th><th>Recebido (R$)</th><th>Ant. Recebido</th><th>Δ Recebido</th><th>Diferença</th><th>%</th><th>Status</th></tr></thead><tbody id="tBody"></tbody></table></div>
+<div class="rodape">
+<button class="btn btn-green" onclick="exportDia()">⬇️ Exportar dia · Power BI</button>
+<button class="btn btn-indigo" onclick="salvarDia()">💾 Salvar</button>
+<button class="btn btn-amber" onclick="preencherAnterior()">🔄 Preencher com anterior</button>
+<button class="btn btn-gray" onclick="limpar()">🗑 Limpar</button>
 </div>
-
+</div>
+<div id="painel-hist">
+<div class="filt-row">abel style="font-weight:700;font-size:.83rem">Filtrar:</label><select id="fCart" onchange="renderHist()"><option value="">Todas</option><option>SAB</option><option>SAG-e</option></select><select id="fPer" onchange="renderHist()"><option value="">Todos períodos</option></select><button class="btn btn-indigo" style="padding:5px 12px;font-size:.79rem" onclick="exportTudo()">📤 Exportar tudo</button></div>
+<div class="htbl-wrap"><table class="htbl"><thead><tr><th>Data Base</th><th>Tipo</th><th>Período</th><th>A Receber</th><th>Recebido</th><th>Diferença</th><th>%</th><th>Status</th><th></th></tr></thead><tbody id="hBody"></tbody></table></div>
+</div>
+</div>
 <div id="toast"></div>
-
 <div class="overlay" id="ovImport">
-  <div class="modal">
-    <h3>📥 Importar CSV</h3>
-    <div class="drop" onclick="document.getElementById('fInput').click()"
-         ondragover="event.preventDefault()" ondrop="onDrop(event)">
-      Clique ou arraste o arquivo CSV<br>
-      <small style="color:#94a3b8">Formato: Data Base, Tipo, Período, Receber, Recebido</small>
-    </div>
-    <input type="file" id="fInput" accept=".csv" style="display:none" onchange="importCSV(this)">
-    <div class="modal-btns">
-      <button class="btn btn-gray" onclick="fecharImport()">Cancelar</button>
-    </div>
-  </div>
+<div class="modal"><h3>📥 Importar CSV</h3><div class="drop" onclick="document.getElementById('fInput').click()" ondragover="event.preventDefault()" ondrop="onDrop(event)">Clique ou arraste o arquivo CSV<br><small style="color:#94a3b8">Formato: Data Base, Tipo, Período, Receber, Recebido</small></div><input type="file" id="fInput" accept=".csv" style="display:none" onchange="importCSV(this)"><div class="modal-btns"><button class="btn btn-gray" onclick="fecharImport()">Cancelar</button></div></div>
 </div>
-
 <script>
-// ═══════════════════════════════════════════
-// CONSTANTES E ESTADO
-// ═══════════════════════════════════════════
-const META = 0.045;
-const SK = 'expandh_v4';
-let db = loadDB();
-let dtSel = todayISO();
-
-// ═══════════════════════════════════════════
-// STORAGE
-// ═══════════════════════════════════════════
-function loadDB(){try{const r=localStorage.getItem(SK);return r?JSON.parse(r):{}}catch(e){return {}}}
-function saveDB(){localStorage.setItem(SK,JSON.stringify(db))}
-
-// ═══════════════════════════════════════════
-// DATAS
-// ═══════════════════════════════════════════
-function todayISO(){
-  const d=new Date();
-  return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
-}
-function pad(n){return String(n).padStart(2,'0')}
-function fmtData(iso){
-  if(!iso)return'—';
-  const[y,m,d]=iso.split('-');
-  return d+'/'+['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'][+m-1]+'/'+y;
-}
-function fmtPer(iso){
-  const[y,m]=iso.split('-');
-  return ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'][+m-1]+'/'+String(y).slice(2);
-}
-function fmtR(v){return'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}
-
-// ═══════════════════════════════════════════
-// JANELA DESLIZANTE — 6 meses anteriores ao mês atual
-// ═══════════════════════════════════════════
-function calcJanela(){
-  const hoje=new Date();
-  const meses=[];
-  for(let i=5;i>=0;i--){
-    const d=new Date(hoje.getFullYear(),hoje.getMonth()-i,1);
-    meses.push(d.getFullYear()+'-'+pad(d.getMonth()+1)+'-01');
-  }
-  return meses;
-}
-
-function renderJanela(){
-  const jan=calcJanela();
-  const el=document.getElementById('jMeses');
-  el.innerHTML='';
-  jan.forEach((m,i)=>{
-    const c=document.createElement('span');
-    c.className='chip'+(i===jan.length-1?' novo':'');
-    c.textContent=fmtPer(m);
-    el.appendChild(c);
-  });
-  // próxima virada
-  const prox=new Date();
-  prox.setMonth(prox.getMonth()+1);
-  const proxNome=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'][prox.getMonth()];
-  const sairNome=fmtPer(jan[0]);
-  document.getElementById('jProx').textContent=
-    '→ Em '+proxNome+'/'+prox.getFullYear()+': entra '+proxNome+'/'+String(prox.getFullYear()).slice(2)+', sai '+sairNome;
-}
-
-// ═══════════════════════════════════════════
-// NAVEGAÇÃO DE DIAS
-// ═══════════════════════════════════════════
-function renderDias(){
-  const row=document.getElementById('diasRow');
-  row.innerHTML='';
-  const hoje=todayISO();
-  for(let i=9;i>=0;i--){
-    const d=new Date();d.setDate(d.getDate()-i);
-    const iso=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
-    const [,m,dia]=iso.split('-');
-    const mNome=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'][+m-1];
-    const btn=document.createElement('button');
-    btn.className='dia-pill'+(db[iso]?' salvo':'')+
-                  (iso===hoje?' ehoje':'')+
-                  (iso===dtSel?' ativo':'');
-    btn.textContent=dia+'/'+mNome;
-    btn.onclick=()=>selData(iso);
-    row.appendChild(btn);
-  }
-}
-
-function selData(iso){
-  if(!iso)return;
-  dtSel=iso;
-  document.getElementById('dtManual').value=iso;
-  renderDias();
-  renderTabela();
-}
-
-// ═══════════════════════════════════════════
-// TABELA DE REGISTRO
-// ═══════════════════════════════════════════
-function renderTabela(){
-  const jan=calcJanela();
-  const carteiras=['SAG-e','SAB'];
-  const dadosHoje=db[dtSel]||{};
-
-  // Encontrar dia anterior com dados
-  let refIso=null;
-  const keys=Object.keys(db).filter(k=>k<dtSel).sort();
-  if(keys.length>0) refIso=keys[keys.length-1];
-  const dadosRef=refIso?db[refIso]:{};
-
-  document.getElementById('dTitulo').textContent=
-    '📅 '+fmtData(dtSel)+(dtSel===todayISO()?' — Hoje':'');
-
-  const pill=document.getElementById('refPill');
-  if(refIso){
-    pill.textContent='Referência: '+fmtData(refIso);
-    pill.style.display='inline-block';
-  } else {
-    pill.style.display='none';
-  }
-
-  const body=document.getElementById('tBody');
-  body.innerHTML='';
-
-  jan.forEach(mes=>{
-    // separador de mês
-    const sep=document.createElement('tr');
-    sep.className='sep';
-    sep.innerHTML=`<td colspan="9">${fmtPer(mes)}</td>`;
-    body.appendChild(sep);
-
-    carteiras.forEach(cart=>{
-      const k=mes+'|'+cart;
-      const hoje=dadosHoje[k]||{};
-      const ref=dadosRef[k]||{};
-
-      const receber=hoje.receber||ref.receber||'';
-      const recebido=hoje.recebido||'';
-      const antRecebido=ref.recebido||'';
-
-      const tr=document.createElement('tr');
-      tr.dataset.key=k;
-
-      // classe visual dos inputs
-      const clReceber=receber&&ref.receber&&receber==ref.receber?'inp igual':'inp';
-      const clRecebido=recebido&&antRecebido&&recebido==antRecebido?'inp igual':'inp';
-
-      tr.innerHTML=`
-        <td style="color:#64748b;font-size:.8rem">${fmtPer(mes)}</td>
-        <td><span class="cbadge ${cart==='SAB'?'sab':'sage'}">${cart}</span></td>
-        <td><input class="${clReceber}" id="r_${k}" type="text" value="${receber?Number(receber).toLocaleString('pt-BR',{minimumFractionDigits:2}):''}
-" placeholder="0,00" oninput="calcLinha('${k}')" onfocus="this.select()"></td>
-        <td><input class="${clRecebido}" id="e_${k}" type="text" value
+const META=0.045,SK='expandh_v4';let db=loadDB(),dtSel=todayISO();function loadDB(){try{const r=localStorage.getItem(SK);return r?JSON.parse(r):{}}catch(e){return{}}}function saveDB(){localStorage.setItem(SK,JSON.stringify(db))}function todayISO(){const d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}function pad(n){return String(n).padStart(2,'0')}function fmtData(iso){if(!iso)return'—';const[y,m,d]=iso.split('-');return d+'/'+['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'][+m-1]+'/'+y}function fmtPer(iso){const[y,m]=iso.split('-');return['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'][+m-1]+'/'+String(y).slice(2)}function fmtR(v){return'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}function calcJanela(){const hoje=new Date(),meses=[];for(let i=5;i>=0;i--){const d=new Date(hoje.getFullYear(),hoje.getMonth()-i,1);meses.push(d.getFullYear()+'-'+pad(d.getMonth()+1)+'-01')}return meses}function renderJanela(){const jan=calcJanela(),el=document.getElementById('jMeses');el.innerHTML='';jan.forEach((m,i)=>{const c=document.createElement('span');c.className='chip'+(i===jan.length-1?' novo':'');c.textContent=fmtPer(m);el.appendChild(c)});const prox=new Date();prox.setMonth(prox.getMonth()+1);const proxNome=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'][prox.getMonth()],sairNome=fmtPer(jan[0]);document.getElementById('jProx').textContent='→ Em '+proxNome+'/'+prox.getFullYear()+': entra '+proxNome+'/'+String(prox.getFullYear()).slice(2)+', sai '+sairNome}function renderDias(){const row=document.getElementById('diasRow');row.innerHTML='';const hoje=todayISO();for(let i=9;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const iso=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()),[,m,dia]=iso.split('-'),mNome=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'][+m-1],btn=document.createElement('button');btn.className='dia-pill'+(db[iso]?' salvo':'')+(iso===hoje?' ehoje':'')+(iso===dtSel?' ativo':'');btn.textContent=dia+'/'+mNome;btn.onclick=()=>selData(iso);row.appendChild(btn)}}function selData(iso){if(!iso)return;dtSel=iso;document.getElementById('dtManual').value=iso;renderDias();renderTabela()}function renderTabela(){const jan=calcJanela(),carteiras=['SAG-e','SAB'],dadosHoje=db[dtSel]||{};let refIso=null;const keys=Object.keys(db).filter(k=>k<dtSel).sort();if(keys.length>0)refIso=keys[keys.length-1];const dadosRef=refIso?db[refIso]:{};document.getElementById('dTitulo').textContent='📅 '+fmtData(dtSel)+(dtSel===todayISO()?' — Hoje':'');const pill=document.getElementById('refPill');if(refIso){pill.textContent='Referência: '+fmtData(refIso);pill.style.display='inline-block'}else pill.style.display='none';const body=document.getElementById('tBody');body.innerHTML='';jan.forEach(mes=>{const sep=document.createElement('tr');sep.className='sep';sep.innerHTML=`<td colspan="9">${fmtPer(mes)}</td>`;body.appendChild(sep);carteiras.forEach(cart=>{const k=mes+'|'+cart,hoje=dadosHoje[k]||{},ref=dadosRef[k]||{},receber=hoje.receber||ref.receber||'',recebido=hoje.recebido||'',antRecebido=ref.recebido||'',tr=document.createElement('tr');tr.dataset.key=k;const clReceber=receber&&ref.receber&&receber==ref.receber?'inp igual':'inp',clRecebido=recebido&&antRecebido&&recebido==antRecebido?'inp igual':'inp';tr.innerHTML=`<td style="color:#64748b;font-size:.8rem">${fmtPer(mes)}</td><td><span class="cbadge ${cart==='SAB'?'sab':'sage'}">${cart}</span></td><td><input class="${clReceber}" id="r_${k}" type="text" value="${receber?Number(receber).toLocaleString('pt-BR',{minimumFractionDigits:2}):''}" placeholder="0,00" oninput="calcLinha('${k}')" onfocus="this.select()"></td><td><input class="${clRecebido}" id="e_${k}" type="text" value="${recebido?Number(recebido).toLocaleString('pt-BR',{minimumFractionDigits:2}):''}" placeholder="0,00" oninput="calcLinha('${k}')" onfocus="this.select()"></td><td style="font-size:.8rem;color:#64748b">${antRecebido?fmtR(antRecebido):'—'}</td><td id="dlt_${k}" class="delta dz">—</td><td id="dif_${k}" class="dif">—</td><td id="pct_${k}" class="pok">—</td><td id="st_${k}">—</td>`;body.appendChild(tr);if(receber&&recebido)calcLinha(k)})});preencherAnterior()}function calcLinha(k){const rInp=document.getElementById('r_'+k),eInp=document.getElementById('e_'+k);let r=parseFloat(String(rInp.value).replace(/\./g,'').replace(',','.')),e=parseFloat(String(eInp.value).replace(/\./g,'').replace(',','.'));if(isNaN(r))r=0;if(isNaN(e))e=0;const dif=r-e,pct=r>0?dif/r:0;document.getElementById('dif_'+k).innerHTML=dif>0?fmtR(dif):'R$ 0,00';const pctEl=document.getElementById('pct_'+k);pctEl.textContent=(pct*100).toFixed(2)+'%';pctEl.className=pct<=META?'pok':pct<=META+0.02?'pat':'pcr';const stEl=document.getElementById('st_'+k);if(pct<=META)stEl.innerHTML='<span class="sbadge sok">✅ OK</span>';else if(pct<=META+0.02)stEl.innerHTML='<span class="sbadge sat">⚠️ Atenção</span>';else stEl.innerHTML='<span class="sbadge scr">🔴 Crítico</span>';const dadosRef=obterDadosRef(),refK=dadosRef[k]||{},antE=refK.recebido||0,delta=e-antE,dltEl=document.getElementById('dlt_'+k);if(delta>0)dltEl.innerHTML=`<span class="dp">+${fmtR(delta)}</span>`;else if(delta<0)dltEl.innerHTML=`<span class="dn">${fmtR(delta)}</span>`;else dltEl.innerHTML='<span class="dz">=</span>'}function obterDadosRef(){let refIso=null;const keys=Object.keys(db).filter(k=>k<dtSel).sort();if(keys.length>0)refIso=keys[keys.length-1];return refIso?db[refIso]:{}}function salvarDia(){const jan=calcJanela(),carteiras=['SAG-e','SAB'],dados={};let vazio=true;jan.forEach(mes=>{carteiras.forEach(cart=>{const k=mes+'|'+cart,rInp=document.getElementById('r_'+k),eInp=document.getElementById('e_'+k);let r=parseFloat(String(rInp.value).replace(/\./g,'').replace(',','.')),e=parseFloat(String(eInp.value).replace(/\./g,'').replace(',','.'));if(!isNaN(r)&&!isNaN(e)){dados[k]={receber:r,recebido:e};vazio=false}})});if(vazio){toast('⚠️ Nenhum dado para salvar');return}db[dtSel]=dados;saveDB();toast('💾 Dados salvos com sucesso!');renderDias()}function exportDia(){const jan=calcJanela(),carteiras=['SAG-e','SAB'],linhas=[['Data Base','Tipo','Período','Receber','Recebido','Diferença','%','% corte']];jan.forEach(mes=>{carteiras.forEach(cart=>{const k=mes+'|'+cart,rInp=document.getElementById('r_'+k),eInp=document.getElementById('e_'+k);let r=parseFloat(String(rInp.value).replace(/\./g,'').replace(',','.')),e=parseFloat(String(eInp.value).replace(/\./g,'').replace(',','.'));if(!isNaN(r)&&!isNaN(e)){const dif=r-e,pct=r>0?dif/r:0;linhas.push([dtSel,cart,mes,r,e,dif,pct,META])}})});if(linhas.length===1){toast('⚠️ Nenhum dado para exportar');return}const csv=linhas.map(l=>l.join(',')).join('\n'),blob=new Blob([csv],{type:'text/csv'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`inadimplencia_${dtSel}.csv`;a.click();toast('⬇️ CSV exportado!')}function exportTudo(){const linhas=[['Data Base','Tipo','Período','Receber','Recebido','Diferença','%','% corte']];Object.keys(db).sort().forEach(dt=>{const dados=db[dt];Object.keys(dados).forEach(k=>{const[mes,cart]=k.split('|'),{receber,recebido}=dados[k],dif=receber-recebido,pct=receber>0?dif/receber:0;linhas.push([dt,cart,mes,receber,recebido,dif,pct,META])})});if(linhas.length===1){toast('⚠️ Histórico vazio');return}const csv=linhas.map(l=>l.join(',')).join('\n'),blob=new Blob([csv],{type:'text/csv'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`inadimplencia_completo.csv`;a.click();toast('⬇️ Histórico completo exportado!')}function preencherAnterior(){const ref=obterDadosRef();if(!Object.keys(ref).length)return;Object.keys(ref).forEach(k=>{const rInp=document.getElementById('r_'+k),eInp=document.getElementById('e_'+k);if(rInp&&eInp&&!rInp.value&&!eInp.value){rInp.value=Number(ref[k].receber).toLocaleString('pt-BR',{minimumFractionDigits:2});rInp.className='inp igual';calcLinha(k)}})}function limpar(){const jan=calcJanela(),carteiras=['SAG-e','SAB'];jan.forEach(mes=>{carteiras.forEach(cart=>{const k=mes+'|'+cart;document.getElementById('r_'+k).value='';document.getElementById('e_'+k).value='';document.getElementById('dlt_'+k).innerHTML='<span class="dz">—</span>';document.getElementById('dif_'+k).textContent='—';document.getElementById('pct_'+k).textContent='—';document.getElementById('st_'+k).textContent='—'})})}function mudarTab(t){if(t==='reg'){document.getElementById('painel-reg').style.display='block';document.getElementById('painel-hist').style.display='none';document.getElementById('tReg').className='tab ativo';document.getElementById('tHist').className='tab'}else{document.getElementById('painel-reg').style.display='none';document.getElementById('painel-hist').style.display='block';document.getElementById('tReg').className='tab';document.getElementById('tHist').className='tab ativo';renderHist()}}function renderHist(){const hBody=document.getElementById('hBody');hBody.innerHTML='';const cart=document.getElementById('fCart').value,per=document.getElementById('fPer').value;let linhas=[];Object.keys(db).sort().reverse().forEach(dt=>{const dados=db[dt];Object.keys(dados).forEach(k=>{const[mes,c]=k.split('|');if((cart&&c!==cart)||(per&&mes!==per))return;const{receber,recebido}=dados[k],dif=receber-recebido,pct=receber>0?dif/receber:0;linhas.push({dt,tipo:c,per:mes,receber,recebido,dif,pct})})});if(!linhas.length){hBody.innerHTML='<tr><td colspan="9" class="vazio">Nenhum registro encontrado</td></tr>';return}linhas.forEach(l=>{const tr=document.createElement('tr');const st=l.pct<=META?'<span class="sbadge sok">✅ OK</span>':l.pct<=META+0.02?'<span class="sbadge sat">⚠️ Atenção</span>':'<span class="sbadge scr">🔴 Crítico</span>';tr.innerHTML=`<td>${fmtData(l.dt)}</td><td><span class="cbadge ${l.tipo==='SAB'?'sab':'sage'}">${l.tipo}</span></td><td>${fmtPer(l.per)}</td><td>${fmtR(l.receber)}</td><td>${fmtR(l.recebido)}</td><td class="dif">${fmtR(l.dif)}</td><td class="p${ l.pct<=META?'ok':l.pct<=META+0.02?'at':'cr'}">${(l.pct*100).toFixed(2)}%</td><td>${st}</td><td><button class="btn-gray" style="padding:3px 8px;font-size:.75rem" onclick="deletarReg('${l.dt}','${l.per}|${l.tipo}')">🗑</button></td>`;hBody.appendChild(tr)});const periodos=new Set();Object.keys(db).forEach(dt=>{Object.keys(db[dt]).forEach(k=>{const[mes]=k.split('|');periodos.add(mes)})});const selPer=document.getElementById('fPer');selPer.innerHTML='<option value="">Todos períodos</option>';Array.from(periodos).sort().reverse().forEach(p=>{const opt=document.createElement('option');opt.value=p;opt.textContent=fmtPer(p);selPer.appendChild(opt)})}function deletarReg(dt,k){if(!confirm('Deletar este registro?'))return;if(db[dt])delete db[dt][k];if(db[dt]&&!Object.keys(db[dt]).length)delete db[dt];saveDB();renderHist();toast('🗑 Registro deletado')}function abrirImport(){document.getElementById('ovImport').className='overlay open'}function fecharImport(){document.getElementById('ovImport').className='overlay'}function onDrop(e){e.preventDefault();const f=e.dataTransfer.files[0];if(f)importCSV({files:[f]})}function importCSV(inp){const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{const linhas=e.target.result.split('\n').slice(1);linhas.forEach(l=>{const[dt,tipo,per,rec,rece]=l.split(',');if(dt&&tipo&&per&&rec&&rece){const k=per+'|'+tipo;if(!db[dt])db[dt]={};db[dt][k]={receber:parseFloat(rec),recebido:parseFloat(rece)}}});saveDB();fecharImport();toast('📥 CSV importado!');renderDias();if(dtSel)renderTabela()};r.readAsText(f)}function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.className='show';setTimeout(()=>t.className='',3000)}renderJanela();renderDias();selData(todayISO());
+</script>
+</body>
+</html>
