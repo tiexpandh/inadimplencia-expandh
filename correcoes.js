@@ -95,8 +95,7 @@ window.renderDias = function(){
     // Verificar se é dia útil
     if(ehDiaUtil(dtStr)){
       const[aa,mm,dd]=dtStr.split('-');
-      const label=dd+'/'+meses[parseInt(mm)-1].substring(0,3);
-      
+      const label=dd+'/'+window.meses[parseInt(mm)-1].substring(0,3);      
       const btn=document.createElement('button');
       btn.textContent=label;
       btn.onclick=()=>abrirDia(dtStr);
