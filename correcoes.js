@@ -159,3 +159,30 @@ setTimeout(()=>{
 }, 1000);
 
 console.log('✅ Correção de cálculo de diferença ativada!');
+
+
+// 5. Corrigir períodos para serem 6 meses retroativos baseados na data selecionada
+const renderTabelaOriginal = window.renderTabela;
+
+window.renderTabela = function(){
+  if(!dtSel) return;
+  
+  // Calcular os 6 meses retroativos baseados na data selecionada
+  const dataSel = new Date(dtSel+'T12:00:00');
+  const periodos = [];
+  
+  for(let i=5; i>=0; i--){
+    const d = new Date(dataSel);
+    d.setMonth(dataSel.getMonth() - i);
+    const per = d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-01';
+    periodos.push(per);
+  }
+  
+  // Armazenar os períodos calculados globalmente
+  window.periodosAtuais = periodos;
+  
+  // Chamar função original
+  renderTabelaOriginal();
+};
+
+console.log('✅ Períodos retroativos ativados!');
